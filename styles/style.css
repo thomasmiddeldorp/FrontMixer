@@ -1,11 +1,11 @@
 body {
 	background-color: #000;
+	color: #fff;
 	font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
 }
 
 .mixer {
 	display: flex;
-	color: #fff;
 }
 
 .fader-wrapper {
