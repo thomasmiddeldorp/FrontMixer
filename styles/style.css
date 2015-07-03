@@ -1,5 +1,11 @@
+body {
+	background-color: #000;
+	font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
+}
+
 .mixer {
 	display: flex;
+	color: #fff;
 }
 
 .fader-wrapper {
@@ -13,13 +19,14 @@
 	transform-origin: 0 0;
 	width: 200px;
 	height: 50px;
+	background-color: #000;
 }
 
 .fader-vertical::-webkit-slider-runnable-track {
 	-webkit-appearance: none;
 	width: 200px;
 	height: 2px;
-	background-color: #E6E6E6;
+	background-color: #fff;
 }
 
 .fader-vertical::-webkit-slider-thumb {
@@ -30,4 +37,10 @@
 	border-left: 4px solid #000;
 	border-right: 4px solid #000;
 	background-color: #fff;
+}
+
+.control-button {
+	background-color: #FFA43C;
+	border: none;
+	color: #fff;
 }
