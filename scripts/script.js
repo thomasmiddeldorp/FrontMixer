@@ -7,7 +7,7 @@ window.addEventListener('load', function () {
 		volumeFaderElement: document.getElementById('volume-fader-left'),
 		lowBandElement: document.getElementById('low-band-left'),
 		highBandElement: document.getElementById('high-band-left')
-	}, audioContext);
+	}, audioContext, 'audio/my-empty-bottle.mp3');
 
 	var frontMixerRight = new FrontMixer({
 		playElement: document.getElementById('play-right'),
@@ -15,5 +15,5 @@ window.addEventListener('load', function () {
 		volumeFaderElement: document.getElementById('volume-fader-right'),
 		lowBandElement: document.getElementById('low-band-right'),
 		highBandElement: document.getElementById('high-band-right')
-	}, audioContext);
+	}, audioContext, 'audio/unleash-the-beast.mp3');
 });
