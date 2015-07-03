@@ -1,0 +1,33 @@
+.mixer {
+	display: flex;
+}
+
+.fader-wrapper {
+	height: 200px;
+	width: 100px;
+}
+
+.fader-vertical {
+	-webkit-appearance: none;
+	transform: rotate(-90deg) translateX(-200px);
+	transform-origin: 0 0;
+	width: 200px;
+	height: 50px;
+}
+
+.fader-vertical::-webkit-slider-runnable-track {
+	-webkit-appearance: none;
+	width: 200px;
+	height: 2px;
+	background-color: #E6E6E6;
+}
+
+.fader-vertical::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	transform: translateY(-15px);
+	height: 30px;
+	width: 10px;
+	border-left: 4px solid #000;
+	border-right: 4px solid #000;
+	background-color: #fff;
+}

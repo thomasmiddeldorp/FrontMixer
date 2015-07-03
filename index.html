@@ -1,54 +1,62 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Audio</title>
-    <link href="styles/style.css" rel="stylesheet"/>
-    <script src="scripts/equalizer.js"></script>
-    <script src="scripts/front-mixer.js"></script>
-    <script src="scripts/script.js"></script>
-</head>
-<body>
-<form>
-    <section>
-        <div>
-            <label for="low-band-left">Low</label>
-            <input id="low-band-left" max="40" min="-40" step="1" type="range" value="0"/>
-        </div>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Audio</title>
+		<link href="styles/style.css" rel="stylesheet"/>
+		<script src="scripts/equalizer.js"></script>
+		<script src="scripts/front-mixer.js"></script>
+		<script src="scripts/script.js"></script>
+	</head>
+	<body>
+		<form>
+			<div class="mixer">
+				<section class="mixer-channel">
+					<div>
+						<label for="low-band-left">Low</label>
+						<input id="low-band-left" max="40" min="-40" step="1" type="range" value="0"/>
+					</div>
 
-        <div>
-            <label for="high-band-left">High</label>
-            <input id="high-band-left" max="40" min="-40" step="1" type="range" value="0"/>
-        </div>
+					<div>
+						<label for="high-band-left">High</label>
+						<input id="high-band-left" max="40" min="-40" step="1" type="range" value="0"/>
+					</div>
 
-        <div>
-            <label for="volume-fader-left">Volume</label>
-            <input id="volume-fader-left" max="100" min="0" step="1" type="range" value="100"/>
-        </div>
+					<div>
+						<label for="volume-fader-left">Volume</label>
 
-        <a href="#" id="play-left">Play</a>
-        <a href="#" id="stop-left">Stop</a>
-    </section>
-    <section>
-        <div>
-            <label for="low-band-right">Low</label>
-            <input id="low-band-right" max="40" min="-40" step="1" type="range" value="0"/>
-        </div>
+						<div class="fader-wrapper">
+							<input id="volume-fader-left" class="fader-vertical" max="100" min="0" step="1" type="range" value="100"/>
+						</div>
+					</div>
 
-        <div>
-            <label for="high-band-right">High</label>
-            <input id="high-band-right" max="40" min="-40" step="1" type="range" value="0"/>
-        </div>
+					<a href="#" id="play-left">Play</a>
+					<a href="#" id="stop-left">Stop</a>
+				</section>
+				<section class="mixer-channel">
+					<div>
+						<label for="low-band-right">Low</label>
+						<input id="low-band-right" max="40" min="-40" step="1" type="range" value="0"/>
+					</div>
 
-        <div>
-            <label for="volume-fader-right">Volume</label>
-            <input id="volume-fader-right" max="100" min="0" step="1" type="range" value="100"/>
-        </div>
+					<div>
+						<label for="high-band-right">High</label>
+						<input id="high-band-right" max="40" min="-40" step="1" type="range" value="0"/>
+					</div>
 
-        <a href="#" id="play-right">Play</a>
-        <a href="#" id="stop-right">Stop</a>
-    </section>
-</form>
-<script src="http://cdn.binaryjs.com/0/binary.js"></script>
-</body>
+					<div>
+						<label for="volume-fader-right">Volume</label>
+
+						<div class="fader-wrapper">
+							<input id="volume-fader-right" class="fader-vertical" max="100" min="0" step="1" type="range" value="100"/>
+						</div>
+					</div>
+
+					<a href="#" id="play-right">Play</a>
+					<a href="#" id="stop-right">Stop</a>
+				</section>
+			</div>
+		</form>
+		<script src="http://cdn.binaryjs.com/0/binary.js"></script>
+	</body>
 </html>
