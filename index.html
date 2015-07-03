@@ -4,12 +4,26 @@
     <meta charset="utf-8"/>
     <title>Audio</title>
     <link href="styles/style.css" rel="stylesheet"/>
+    <script src="scripts/equalizer.js"></script>
     <script src="scripts/front-mixer.js"></script>
     <script src="scripts/script.js"></script>
 </head>
 <body>
 <form>
-    <input id="volume-fader" type="range" min="0" max="100" step="0" value="100"/>
+    <div>
+        <label for="low-band">Low</label>
+        <input id="low-band" max="40" min="-40" step="1" type="range" value="0" />
+    </div>
+
+    <div>
+        <label for="high-band">High</label>
+        <input id="high-band" max="40" min="-40" step="1" type="range" value="0" />
+    </div>
+
+    <div>
+        <label for="volume-fader">Volume</label>
+        <input id="volume-fader" max="100" min="0" step="1" type="range" value="100" />
+    </div>
 
     <a href="#" id="play">Play</a>
     <a href="#" id="stop">Stop</a>

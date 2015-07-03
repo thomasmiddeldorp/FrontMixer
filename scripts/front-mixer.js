@@ -5,9 +5,12 @@ function FrontMixer(controls) {
 	this.controls.stopElement.addEventListener('click', this.onStopElementClick.bind(this));
 	this.controls.volumeFaderElement.addEventListener('input', this.onVolumeFaderElementInput.bind(this));
 
-	this.audioContext = new AudioContext();
-	this.gainNode = null;
-	this.source = null;
+	this.context = new FrontMixerContext();
+
+	this.equalizer = new Equalizer(this.context);
+
+	this.equalizer.outputNode.connect(this.context.gainNode);
+	this.context.gainNode.connect(this.context.audioContext.destination);
 }
 
 FrontMixer.prototype = {
@@ -24,7 +27,7 @@ FrontMixer.prototype = {
 	},
 
 	onVolumeFaderElementInput: function () {
-		this.adjustVolume(this.controls.volumeFaderElement.value);
+		this.adjustVolume(this.controls.volumeFaderElement.value / 100);
 	},
 
 	loadAudio: function () {
@@ -38,26 +41,26 @@ FrontMixer.prototype = {
 	playAudio: function () {
 		var that = this;
 		this.loadAudio().then(function (arrayBuffer) {
-			that.audioContext.decodeAudioData(arrayBuffer, function (buffer) {
-				that.gainNode = that.audioContext.createGain();
-				that.source = that.audioContext.createBufferSource();
-				that.source.buffer = buffer;
-
-				that.source.connect(that.gainNode);
-				that.gainNode.connect(that.audioContext.destination);
-
-				that.source.start(0);
+			that.context.audioContext.decodeAudioData(arrayBuffer, function (buffer) {
+				that.context.source.buffer = buffer;
+				that.context.source.start(0);
 			});
 		});
 	},
 
 	stopAudio: function () {
-		if (this.source != null) {
-			this.source.stop();
+		if (this.context.source != null) {
+			this.context.source.stop();
 		}
 	},
 
-	adjustVolume: function(volumePercentage) {
-		this.gainNode.gain.value = volumePercentage / 100;
+	adjustVolume: function (volumePercentage) {
+		this.context.gainNode.gain.value = volumePercentage;
 	}
 };
+
+function FrontMixerContext() {
+	this.audioContext = new AudioContext();
+	this.gainNode = this.audioContext.createGain();
+	this.source = this.audioContext.createBufferSource();
+}
