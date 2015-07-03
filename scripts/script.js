@@ -1,7 +1,19 @@
 window.addEventListener('load', function () {
-	var frontMixer = new FrontMixer({
-		playElement: document.getElementById('play'),
-		stopElement: document.getElementById('stop'),
-		volumeFaderElement: document.getElementById('volume-fader')
-	});
+	var audioContext = new AudioContext();
+
+	var frontMixerLeft = new FrontMixer({
+		playElement: document.getElementById('play-left'),
+		stopElement: document.getElementById('stop-left'),
+		volumeFaderElement: document.getElementById('volume-fader-left'),
+		lowBandElement: document.getElementById('low-band-left'),
+		highBandElement: document.getElementById('high-band-left')
+	}, audioContext);
+
+	var frontMixerRight = new FrontMixer({
+		playElement: document.getElementById('play-right'),
+		stopElement: document.getElementById('stop-right'),
+		volumeFaderElement: document.getElementById('volume-fader-right'),
+		lowBandElement: document.getElementById('low-band-right'),
+		highBandElement: document.getElementById('high-band-right')
+	}, audioContext);
 });

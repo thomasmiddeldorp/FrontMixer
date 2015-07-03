@@ -1,13 +1,13 @@
-function FrontMixer(controls) {
+function FrontMixer(controls, audioContext) {
 	this.controls = controls;
 
 	this.controls.playElement.addEventListener('click', this.onPlayElementClick.bind(this));
 	this.controls.stopElement.addEventListener('click', this.onStopElementClick.bind(this));
 	this.controls.volumeFaderElement.addEventListener('input', this.onVolumeFaderElementInput.bind(this));
 
-	this.context = new FrontMixerContext();
+	this.context = new FrontMixerContext(audioContext);
 
-	this.equalizer = new Equalizer(this.context);
+	this.equalizer = new Equalizer(this.context, this.controls);
 
 	this.equalizer.outputNode.connect(this.context.gainNode);
 	this.context.gainNode.connect(this.context.audioContext.destination);
@@ -59,8 +59,8 @@ FrontMixer.prototype = {
 	}
 };
 
-function FrontMixerContext() {
-	this.audioContext = new AudioContext();
+function FrontMixerContext(audioContext) {
+	this.audioContext = audioContext;
 	this.gainNode = this.audioContext.createGain();
 	this.source = this.audioContext.createBufferSource();
 }

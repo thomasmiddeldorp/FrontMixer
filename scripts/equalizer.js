@@ -1,8 +1,9 @@
-function Equalizer(context) {
+function Equalizer(context, controls) {
 	this.context = context;
+	this.controls = controls;
 
-	this.lowBandElement = document.getElementById('low-band');
-	this.highBandElement = document.getElementById('high-band');
+	this.lowBandElement = this.controls.lowBandElement;
+	this.highBandElement = this.controls.highBandElement;
 
 	this.lowBandElement.addEventListener('input', this.onLowBandInput.bind(this));
 	this.highBandElement.addEventListener('input', this.onHighBandInput.bind(this));
