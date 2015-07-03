@@ -1,5 +1,6 @@
-function FrontMixer(controls, audioContext) {
+function FrontMixer(controls, audioContext, file) {
 	this.controls = controls;
+	this.file = file;
 
 	this.controls.playElement.addEventListener('click', this.onPlayElementClick.bind(this));
 	this.controls.stopElement.addEventListener('click', this.onStopElementClick.bind(this));
@@ -31,10 +32,17 @@ FrontMixer.prototype = {
 	},
 
 	loadAudio: function () {
-		var request = new Request('audio/kathedraal.mp3');
+		var request = new Request(this.file);
 
 		return fetch(request).then(function (response) {
 			return response.arrayBuffer();
+		});
+	},
+
+	streamAudio: function () {
+		var client = new BinaryClient('ws://localhost:9000');
+		client.on('stream', function (stream) {
+
 		});
 	},
 
