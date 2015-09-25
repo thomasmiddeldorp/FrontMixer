@@ -24,6 +24,10 @@ body {
 	font-size: 3rem;
 	line-height: 3rem;
 }
+.device .brand .copyright {
+	font-size: 1.5rem;
+	vertical-align: super;
+}
 
 .device .mixer {
 	display: flex;
