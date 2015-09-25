@@ -1,7 +1,9 @@
 'use strict';
 
 window.addEventListener('load', function () {
-	var mixer = new Mixer();
+	var mixerLeft = new Mixer('channel1');
+	var mixerRight = new Mixer('channel1');
+
 	var midiController = new MidiController();
 	var midiConnection = midiController.connect();
 
@@ -9,7 +11,7 @@ window.addEventListener('load', function () {
 		console.log(midiOptions);
 		midiAccess.inputs.forEach(function (input) {
 			input.onmidimessage = function (event) {
-				mixer.trigger(event.data[1], event.data[2]);
+				mixerRight.trigger(event.data[1], event.data[2]);
 			};
 		});
 	}, function () {
@@ -25,7 +27,7 @@ window.addEventListener('load', function () {
 		lowBandElement: document.getElementById('low-band-left'),
 		highBandElement: document.getElementById('high-band-left'),
 		distortionElement: document.getElementById('distortion')
-	}, audioContext, 'audio/my-empty-bottle.mp3', mixer);
+	}, audioContext, 'audio/my-empty-bottle.mp3', mixerLeft);
 
 	var frontMixerRight = new FrontMixer({
 		playElement: document.getElementById('play-right'),
@@ -34,5 +36,5 @@ window.addEventListener('load', function () {
 		lowBandElement: document.getElementById('low-band-right'),
 		highBandElement: document.getElementById('high-band-right'),
 		distortionElement: document.getElementById('distortion')
-	}, audioContext, 'audio/unleash-the-beast.mp3', mixer);
+	}, audioContext, 'audio/fts.mp3', mixerRight);
 });

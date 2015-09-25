@@ -7,24 +7,16 @@ function FrontMixer(controls, audioContext, file, mixer) {
 	};
 
 	mixer.registerControl('channel1-play', this.onMixerPlay.bind(this));
+	mixer.registerControl('channel1-volume', this.onVolumeFaderElementExternalInput.bind(this));
 
 	this.controls.playElement.addEventListener('click', this.onPlayElementClick.bind(this));
 	this.controls.stopElement.addEventListener('click', this.onStopElementClick.bind(this));
 	this.controls.volumeFaderElement.addEventListener('input', this.onVolumeFaderElementInput.bind(this));
 	this.controls.distortionElement.addEventListener('input', this.onDistortionInput.bind(this));
 
-	//this.audio = new Audio();
-	//this.audio.src = 'audio/my-empty-bottle.mp3';
-	//this.audio.controls = false;
-	//this.audio.autoplay = false;
-	//document.body.appendChild(this.audio);
-
 	this.context = new FrontMixerContext(audioContext);
-	//var source = this.context.audioContext.createMediaElementSource(this.audio);
 
-	//this.context.audioContext.source = source;
-
-	this.equalizer = new Equalizer(this.context, this.controls);
+	this.equalizer = new Equalizer(this.context, this.controls, mixer);
 	this.distortion = this.context.audioContext.createWaveShaper();
 
 	this.equalizer.outputNode.connect(this.context.gainNode);
@@ -60,6 +52,11 @@ FrontMixer.prototype = {
 		event.preventDefault();
 
 		this.stopAudio();
+	},
+
+	onVolumeFaderElementExternalInput: function (value) {
+		this.adjustVolume(value / 100);
+		this.controls.volumeFaderElement.value = value;
 	},
 
 	onVolumeFaderElementInput: function () {
