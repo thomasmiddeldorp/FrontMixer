@@ -1,19 +1,40 @@
 body {
 	background-color: #000;
 	color: #fff;
+	font-size: 16px;
 	font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
 }
 
-.mixer {
+.device {
+	width: 500px;
+	margin: 0 auto;
+	background-color: #141c21;
+	padding: 1rem;
+	border: 3px solid #454544;
+}
+.device .brand {
+	text-align: center;
+	margin: -.5rem -.5rem 1rem;
+	background-color: #000000;
+	border: 2px solid #333332;
+	padding: 1rem;
+	borde-radius: 15px;
+	font-family: Pacifico, serif;
+	letter-spacing: 2px;
+	font-size: 3rem;
+	line-height: 3rem;
+}
+
+.device .mixer {
 	display: flex;
 }
 
-.fader-wrapper {
+.device .fader-wrapper {
 	height: 200px;
 	width: 100px;
 }
 
-.fader-vertical {
+.device .fader-vertical {
 	-webkit-appearance: none;
 	transform: rotate(-90deg) translateX(-200px);
 	transform-origin: 0 0;
@@ -22,14 +43,14 @@ body {
 	background-color: #000;
 }
 
-.fader-vertical::-webkit-slider-runnable-track {
+.device .fader-vertical::-webkit-slider-runnable-track {
 	-webkit-appearance: none;
 	width: 200px;
 	height: 2px;
 	background-color: #fff;
 }
 
-.fader-vertical::-webkit-slider-thumb {
+.device .fader-vertical::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	transform: translateY(-15px);
 	height: 30px;
@@ -39,7 +60,7 @@ body {
 	background-color: #fff;
 }
 
-.control-button {
+.device .control-button {
 	background-color: #FFA43C;
 	border: none;
 	color: #fff;
