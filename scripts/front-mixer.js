@@ -1,6 +1,12 @@
-function FrontMixer(controls, audioContext, file) {
+function FrontMixer(controls, audioContext, file, mixer) {
 	this.controls = controls;
 	this.file = file;
+	this.state = {
+		isChannel1Playing: false,
+		isChannel2Playing: false
+	};
+
+	mixer.registerControl('channel1-play', this.onMixerPlay.bind(this));
 
 	this.controls.playElement.addEventListener('click', this.onPlayElementClick.bind(this));
 	this.controls.stopElement.addEventListener('click', this.onStopElementClick.bind(this));
@@ -28,8 +34,24 @@ function FrontMixer(controls, audioContext, file) {
 }
 
 FrontMixer.prototype = {
+	onMixerPlay: function (value) {
+		if(value === 0) { // TODO make value translator
+			return;
+		}
+
+		if (this.state.isChannel1Playing) {
+			this.stopAudio();
+		}
+		else {
+			this.playAudio();
+		}
+		this.state.isChannel1Playing = !this.state.isChannel1Playing;
+	},
+
 	onPlayElementClick: function (event) {
-		event.preventDefault();
+		//event.preventDefault();
+
+		console.log('play');
 
 		this.playAudio();
 	},
@@ -59,9 +81,6 @@ FrontMixer.prototype = {
 	streamAudio: function () {
 		var that = this;
 
-
-
-
 		var client = new BinaryClient('ws://localhost:9000');
 		client.on('stream', function (stream) {
 			var arrayBuffer = [];
@@ -71,7 +90,7 @@ FrontMixer.prototype = {
 			stream.on('data', function (chunk) {
 				arrayBuffer.concat(chunk);
 
-				if(!started) {
+				if (!started) {
 					that.context.audioContext.decodeAudioData(arrayBuffer, function (buffer) {
 						that.context.source.buffer = buffer;
 						that.context.source.start(0);

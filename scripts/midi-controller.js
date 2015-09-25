@@ -6,4 +6,8 @@ MidiController = class MidiController {
 			throw 'No Web MIDI support';
 		}
 	}
+
+	getInputs() {
+
+	}
 }
