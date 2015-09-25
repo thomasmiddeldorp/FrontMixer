@@ -1,4 +1,7 @@
 function FrontMixer(controls, audioContext, file, mixer) {
+	var that = this;
+	this.audioContext = audioContext;
+	this.mixer = mixer;
 	this.controls = controls;
 	this.file = file;
 	this.state = {
@@ -7,43 +10,68 @@ function FrontMixer(controls, audioContext, file, mixer) {
 	};
 
 	mixer.registerControl('channel1-play', this.onMixerPlay.bind(this));
+	mixer.registerControl('channel1-cue', this.onCue.bind(this));
 	mixer.registerControl('channel1-volume', this.onVolumeFaderElementExternalInput.bind(this));
 
 	this.controls.playElement.addEventListener('click', this.onPlayElementClick.bind(this));
 	this.controls.stopElement.addEventListener('click', this.onStopElementClick.bind(this));
 	this.controls.volumeFaderElement.addEventListener('input', this.onVolumeFaderElementInput.bind(this));
-	this.controls.distortionElement.addEventListener('input', this.onDistortionInput.bind(this));
 
-	this.context = new FrontMixerContext(audioContext);
 
-	this.equalizer = new Equalizer(this.context, this.controls, mixer);
-	this.distortion = this.context.audioContext.createWaveShaper();
-
-	this.equalizer.outputNode.connect(this.context.gainNode);
-	this.context.gainNode.connect(this.distortion);
-
-	this.distortion.connect(this.context.audioContext.destination);
+	this.loadAudio().then(function(arrayBuffer) {
+		that.audioBuffer = arrayBuffer;
+		that.initAudio(that.audioBuffer);
+		that.isInitialized = true;
+		console.log('Initialized');
+	});
 }
 
 FrontMixer.prototype = {
+	initAudio: function() {
+		var that = this;
+
+		this.context = new FrontMixerContext(this.audioContext);
+
+		this.context.source = this.context.audioContext.createBufferSource();
+		console.time('init');
+		this.context.audioContext.decodeAudioData(this.audioBuffer, function (buffer) {
+			that.context.source.buffer = buffer;
+			console.timeEnd('init');
+		});
+
+		this.equalizer = new Equalizer(this.context, this.controls, this.mixer);
+		this.distortion = this.context.audioContext.createWaveShaper();
+
+		this.equalizer.outputNode.connect(this.context.gainNode);
+		this.context.gainNode.connect(this.distortion);
+
+		this.distortion.connect(this.context.audioContext.destination);
+	},
+
 	onMixerPlay: function (value) {
 		if(value === 0) { // TODO make value translator
 			return;
 		}
 
-		if (this.state.isChannel1Playing) {
-			this.stopAudio();
-		}
-		else {
+		//if (this.state.isChannel1Playing) {
+		//	this.stopAudio();
+		//}
+		//else {
 			this.playAudio();
-		}
+		//}
 		this.state.isChannel1Playing = !this.state.isChannel1Playing;
 	},
 
-	onPlayElementClick: function (event) {
-		//event.preventDefault();
+	onCue: function (value) {
+		if(value === 0) { // TODO make value translator
+			return;
+		}
+		this.stopAudio();
+		this.initAudio();
+	},
 
-		console.log('play');
+	onPlayElementClick: function (event) {
+		event.preventDefault();
 
 		this.playAudio();
 	},
@@ -104,18 +132,9 @@ FrontMixer.prototype = {
 	},
 
 	playAudio: function () {
-		var that = this;
-
-		//this.streamAudio();
-
-		//this.audio.play();
-
-		this.loadAudio().then(function (arrayBuffer) {
-			that.context.audioContext.decodeAudioData(arrayBuffer, function (buffer) {
-				that.context.source.buffer = buffer;
-				that.context.source.start(0);
-			});
-		});
+		if(this.isInitialized) {
+			this.context.source.start(0);
+		}
 	},
 
 	stopAudio: function () {

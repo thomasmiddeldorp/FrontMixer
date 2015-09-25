@@ -2,6 +2,7 @@ Mixer = class Mixer {
 	constructor(mixerId) {
 		this.MAPPING = {
 			8: mixerId + '-play',
+			9: mixerId + '-cue',
 			50: mixerId + '-volume',
 			48: mixerId + '-eq-high',
 			46: mixerId + '-eq-low'

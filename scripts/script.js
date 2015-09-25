@@ -25,8 +25,7 @@ window.addEventListener('load', function () {
 		stopElement: document.getElementById('stop-left'),
 		volumeFaderElement: document.getElementById('volume-fader-left'),
 		lowBandElement: document.getElementById('low-band-left'),
-		highBandElement: document.getElementById('high-band-left'),
-		distortionElement: document.getElementById('distortion')
+		highBandElement: document.getElementById('high-band-left')
 	}, audioContext, 'audio/my-empty-bottle.mp3', mixerLeft);
 
 	var frontMixerRight = new FrontMixer({
@@ -34,7 +33,6 @@ window.addEventListener('load', function () {
 		stopElement: document.getElementById('stop-right'),
 		volumeFaderElement: document.getElementById('volume-fader-right'),
 		lowBandElement: document.getElementById('low-band-right'),
-		highBandElement: document.getElementById('high-band-right'),
-		distortionElement: document.getElementById('distortion')
-	}, audioContext, 'audio/dust.mp3', mixerRight);
+		highBandElement: document.getElementById('high-band-right')
+	}, audioContext, 'audio/take.mp3', mixerRight);
 });

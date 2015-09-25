@@ -19,7 +19,6 @@ function Equalizer(context, controls, mixer) {
 
 	this.bands = {
 		low: lowBand,
-		//mid: new EqualizerBand('bandpass', context.audioContext),
 		high: highBand
 	};
 
