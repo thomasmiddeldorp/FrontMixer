@@ -28,7 +28,7 @@
 						<label for="volume-fader-left">Volume</label>
 
 						<div class="fader-wrapper">
-							<input id="volume-fader-left" class="fader-vertical" max="127" min="0" step="1" type="range" value="127"/>
+							<input id="volume-fader-left" class="fader-vertical" max="127" min="0" step="1" type="range" value="63"/>
 						</div>
 					</div>
 
@@ -39,19 +39,19 @@
 					<h2>Channel 2</h2>
 					<div class="low-band">
 						<label for="low-band-right">Low</label>
-						<input id="low-band-right" max="127" min="0" step="1" type="range" value="0"/>
+						<input id="low-band-right" max="127" min="0" step="1" type="range" value="63"/>
 					</div>
 
 					<div class="high-band">
 						<label for="high-band-right">High</label>
-						<input id="high-band-right" max="127" min="0" step="1" type="range" value="0"/>
+						<input id="high-band-right" max="127" min="0" step="1" type="range" value="63"/>
 					</div>
 
 					<div class="volume">
 						<label for="volume-fader-right">Volume</label>
 
 						<div class="fader-wrapper">
-							<input id="volume-fader-right" class="fader-vertical" max="127" min="0" step="1" type="range" value="127"/>
+							<input id="volume-fader-right" class="fader-vertical" max="127" min="0" step="1" type="range" value="63"/>
 						</div>
 					</div>
 
@@ -65,6 +65,18 @@
       <!--</div>-->
 
 		</form>
+    <div class="loading-screen">
+      <div class="loading-box">
+        <h2>Loading track</h2>
+        <div class="spinner">
+          <div class="rect1"></div>
+          <div class="rect2"></div>
+          <div class="rect3"></div>
+          <div class="rect4"></div>
+          <div class="rect5"></div>
+        </div>
+      </div>
+    </div>
   </div>
 		<script src="scripts/Mixer.js"></script>
 		<script src="scripts/midi-controller.js"></script>
