@@ -11,6 +11,7 @@ body {
 	background-color: #141c21;
 	padding: 1rem;
 	border: 3px solid #454544;
+	overflow: hidden;
 }
 .device .brand {
 
