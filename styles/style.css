@@ -18,7 +18,7 @@ body {
 	background-color: #000000;
 	border: 2px solid #333332;
 	padding: 1rem;
-	borde-radius: 15px;
+	border-radius: 15px;
 	font-family: Pacifico, serif;
 	letter-spacing: 2px;
 	font-size: 3rem;
@@ -29,20 +29,58 @@ body {
 	vertical-align: super;
 }
 
-.device .mixer {
-	display: flex;
+.device .mixer .mixer-channel {
+	position: relative;
+	box-sizing: border-box;
+	border: 1px solid #000000;
+	background-color: #303443;
+	border-radius: 10px;
+	width: 45%;
+	float: left;
+	padding: 0.5rem;
+	font-family: Iceland, sans-serif;
+}
+.device .mixer .mixer-channel:last-child {
+	float: right;
 }
 
-.device .fader-wrapper {
+.device .mixer .mixer-channel h2 {
+	font-size: 1.5rem;
+	margin: 0 0 .5rem;
+}
+
+.device .mixer .mixer-channel label {
+	display: block;
+	text-align: center;
+}
+
+.device .mixer .mixer-channel .low-band,
+.device .mixer .mixer-channel .high-band {
+	padding: 0 0.25rem;
+	margin: 0 0 0.5rem;
+}
+.device .mixer .mixer-channel .low-band input,
+.device .mixer .mixer-channel .high-band input {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.device .mixer .mixer-channel .volume {
+
+}
+
+
+.device .mixer .mixer-channel .volume .fader-wrapper {
 	height: 200px;
 	width: 100px;
+	margin: 0 auto;
 }
 
 .device .fader-vertical {
 	-webkit-appearance: none;
-	transform: rotate(-90deg) translateX(-200px);
+	transform: rotate(-90deg) translateX(-190px) translateY(25px);
 	transform-origin: 0 0;
-	width: 200px;
+	width: 180px;
 	height: 50px;
 	background-color: #000;
 }
@@ -51,6 +89,7 @@ body {
 	-webkit-appearance: none;
 	width: 200px;
 	height: 2px;
+
 	background-color: #fff;
 }
 
@@ -68,4 +107,24 @@ body {
 	background-color: #FFA43C;
 	border: none;
 	color: #fff;
+}
+.device .play-left {
+	position: absolute;
+	right: 1rem;
+	bottom: 4rem;
+}
+.device .stop-left {
+	position: absolute;
+	right: 1rem;
+	bottom: 1rem;
+}
+.device .play-right {
+	position: absolute;
+	left: 1rem;
+	bottom: 4rem;
+}
+.device .stop-right {
+	position: absolute;
+	left: 1rem;
+	bottom: 1rem;
 }
