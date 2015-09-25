@@ -36,5 +36,5 @@ window.addEventListener('load', function () {
 		lowBandElement: document.getElementById('low-band-right'),
 		highBandElement: document.getElementById('high-band-right'),
 		distortionElement: document.getElementById('distortion')
-	}, audioContext, 'audio/arnej.mp3', mixerRight);
+	}, audioContext, 'audio/dust.mp3', mixerRight);
 });
