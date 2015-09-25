@@ -1,4 +1,18 @@
+'use strict';
+
 window.addEventListener('load', function () {
+	var midiController = new MidiController();
+	var midiConnection = midiController.connect();
+
+	midiConnection.then(function (midiAccess, midiOptions) {
+		console.log(midiOptions);
+		midiAccess.inputs.forEach(function (input) {
+			console.log(input);
+		});
+	}, function () {
+		console.log('fail');
+	})
+
 	var audioContext = new AudioContext();
 
 	var frontMixerLeft = new FrontMixer({

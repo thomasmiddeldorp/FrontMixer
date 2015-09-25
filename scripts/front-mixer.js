@@ -7,13 +7,23 @@ function FrontMixer(controls, audioContext, file) {
 	this.controls.volumeFaderElement.addEventListener('input', this.onVolumeFaderElementInput.bind(this));
 	this.controls.distortionElement.addEventListener('input', this.onDistortionInput.bind(this));
 
+	//this.audio = new Audio();
+	//this.audio.src = 'audio/my-empty-bottle.mp3';
+	//this.audio.controls = false;
+	//this.audio.autoplay = false;
+	//document.body.appendChild(this.audio);
+
 	this.context = new FrontMixerContext(audioContext);
+	//var source = this.context.audioContext.createMediaElementSource(this.audio);
+
+	//this.context.audioContext.source = source;
 
 	this.equalizer = new Equalizer(this.context, this.controls);
 	this.distortion = this.context.audioContext.createWaveShaper();
 
 	this.equalizer.outputNode.connect(this.context.gainNode);
 	this.context.gainNode.connect(this.distortion);
+
 	this.distortion.connect(this.context.audioContext.destination);
 }
 
@@ -34,7 +44,7 @@ FrontMixer.prototype = {
 		this.adjustVolume(this.controls.volumeFaderElement.value / 100);
 	},
 
-	onDistortionInput: function() {
+	onDistortionInput: function () {
 		this.adjustDistortion(this.controls.distortionElement);
 	},
 
@@ -49,24 +59,40 @@ FrontMixer.prototype = {
 	streamAudio: function () {
 		var that = this;
 
+
+
+
 		var client = new BinaryClient('ws://localhost:9000');
 		client.on('stream', function (stream) {
-			var arrayBuffer = new ArrayBuffer();
+			var arrayBuffer = [];
 
-			stream.on('data', function(chunk) {
-				arrayBuffer.push(chunk);
+			var started = false;
+
+			stream.on('data', function (chunk) {
+				arrayBuffer.concat(chunk);
+
+				if(!started) {
+					that.context.audioContext.decodeAudioData(arrayBuffer, function (buffer) {
+						that.context.source.buffer = buffer;
+						that.context.source.start(0);
+					});
+				}
 			});
 
-			that.context.audioContext.decodeAudioData(arrayBuffer, function (buffer) {
-				that.context.source.buffer = buffer;
-				that.context.source.start(0);
-			});
+			//that.context.audioContext.decodeAudioData(arrayBuffer, function (buffer) {
+			//	that.context.source.buffer = buffer;
+			//	that.context.source.start(0);
+			//});
 
 		});
 	},
 
 	playAudio: function () {
 		var that = this;
+
+		//this.streamAudio();
+
+		//this.audio.play();
 
 		this.loadAudio().then(function (arrayBuffer) {
 			that.context.audioContext.decodeAudioData(arrayBuffer, function (buffer) {
@@ -94,7 +120,7 @@ FrontMixer.prototype = {
 				deg = Math.PI / 180,
 				i = 0,
 				x;
-			for ( ; i < n_samples; ++i ) {
+			for (; i < n_samples; ++i) {
 				x = i * 2 / n_samples - 1;
 				curve[i] = ( 3 + k ) * x * 20 * deg / ( Math.PI + k * Math.abs(x) );
 			}
