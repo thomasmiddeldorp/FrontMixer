@@ -13,6 +13,7 @@ body {
 	border: 3px solid #454544;
 }
 .device .brand {
+
 	text-align: center;
 	margin: -.5rem -.5rem 1rem;
 	background-color: #000000;
@@ -23,7 +24,23 @@ body {
 	letter-spacing: 2px;
 	font-size: 3rem;
 	line-height: 3rem;
+	animation: color-change 5s infinite;
 }
+p{
+	-webkit-animation: color-change 1s infinite;
+	-moz-animation: color-change 1s infinite;
+	-o-animation: color-change 1s infinite;
+	-ms-animation: color-change 1s infinite;
+	animation: color-change 1s infinite;
+}
+
+@-webkit-keyframes color-change {
+	0% { color: #f8d1b9; }
+	33% { color: #9eafff; }
+	66% { color: #c9ffb2; }
+	100% { color: #f8d1b9; }
+}
+
 .device .brand .copyright {
 	font-size: 1.5rem;
 	vertical-align: super;
@@ -104,14 +121,28 @@ body {
 }
 
 .device .control-button {
-	background-color: #FFA43C;
+	width: 3rem;
+	height: 3rem;
+	background-color: #6f6a6a;
+	padding: 1rem;
 	border: none;
 	color: #fff;
+	border-radius: 5px;
 }
 .device .play-left {
 	position: absolute;
 	right: 1rem;
-	bottom: 4rem;
+	bottom: 5rem;
+}
+.device .play-left:after, .device .play-right:after {
+	content: '';
+	position: absolute;
+	left: 15px;
+	top: 15px;
+	height: 0;
+	border-left: 20px solid #ffffff;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
 }
 .device .stop-left {
 	position: absolute;
@@ -121,7 +152,7 @@ body {
 .device .play-right {
 	position: absolute;
 	left: 1rem;
-	bottom: 4rem;
+	bottom: 5rem;
 }
 .device .stop-right {
 	position: absolute;
