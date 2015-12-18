@@ -23,12 +23,15 @@ function FrontMixer(controls, audioContext, file, mixer) {
 		that.initAudio(that.audioBuffer);
 		that.isInitialized = true;
 		console.log('Initialized');
+		document.querySelector('.loading-screen').classList.add('hidden');
 	});
 }
 
 FrontMixer.prototype = {
 	initAudio: function() {
 		var that = this;
+		console.log(document.querySelector('.loading-screen').classList);
+		document.querySelector('.loading-screen').classList.remove('hidden');
 
 		this.context = new FrontMixerContext(this.audioContext);
 
@@ -37,6 +40,7 @@ FrontMixer.prototype = {
 		this.context.audioContext.decodeAudioData(this.audioBuffer, function (buffer) {
 			that.context.source.buffer = buffer;
 			console.timeEnd('init');
+			document.querySelector('.loading-screen').classList.add('hidden');
 		});
 
 		this.equalizer = new Equalizer(this.context, this.controls, this.mixer);
@@ -58,14 +62,20 @@ FrontMixer.prototype = {
 		//}
 		//else {
 			this.playAudio();
+			document.querySelector('#play-left').classList.add('playing');
 		//}
 		this.state.isChannel1Playing = !this.state.isChannel1Playing;
 	},
 
 	onCue: function (value) {
+		document.querySelector('#play-left').classList.remove('playing');
 		if(value === 0) { // TODO make value translator
+			document.querySelector('#stop-left').classList.remove('cue-press');
 			return;
 		}
+		document.querySelector('#stop-left').classList.add('cue-press');
+
+
 		this.stopAudio();
 		this.initAudio();
 	},

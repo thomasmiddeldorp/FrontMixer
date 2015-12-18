@@ -15,7 +15,10 @@ Mixer = class Mixer {
 		console.log(value);
 
 		let control = this.MAPPING[id];
-		this.controls[control](value);
+		if (typeof this.controls[control] === 'function'){
+			this.controls[control](value);
+		}
+
 	}
 
 	registerControl(name, callback) {

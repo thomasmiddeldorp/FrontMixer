@@ -11,7 +11,7 @@ window.addEventListener('load', function () {
 		console.log(midiOptions);
 		midiAccess.inputs.forEach(function (input) {
 			input.onmidimessage = function (event) {
-				mixerRight.trigger(event.data[1], event.data[2]);
+				mixerLeft.trigger(event.data[1], event.data[2]);
 			};
 		});
 	}, function () {
@@ -26,7 +26,7 @@ window.addEventListener('load', function () {
 		volumeFaderElement: document.getElementById('volume-fader-left'),
 		lowBandElement: document.getElementById('low-band-left'),
 		highBandElement: document.getElementById('high-band-left')
-	}, audioContext, 'audio/my-empty-bottle.mp3', mixerLeft);
+	}, audioContext, 'audio/take.mp3', mixerLeft);
 
 	var frontMixerRight = new FrontMixer({
 		playElement: document.getElementById('play-right'),

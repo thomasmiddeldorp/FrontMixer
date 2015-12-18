@@ -149,6 +149,9 @@ p{
 .device .play-right:hover:after {
 	border-left-color: #ffffff;
 }
+.device .play-left.playing {
+	background-color: #b87619;
+}
 .device .play-left:active,
 .device .play-right:active {
 	background-color: #5a5555;
@@ -158,6 +161,10 @@ p{
 .device .play-right:active:after {
 	background-color: #5a5555;
 }
+.device .stop-left.cue-press {
+	animation: blink 1.2s infinite;
+}
+
 .device .stop-left:after, .device .stop-right:after {
 	content: '';
 	position: absolute;
@@ -253,6 +260,11 @@ p{
 .spinner .rect5 {
 	-webkit-animation-delay: -0.8s;
 	animation-delay: -0.8s;
+}
+@-webkit-keyframes blink {
+	0% { background-color: #333333;}
+	50% { background-color: red; }
+	100% { background-color: #333333}
 }
 
 @-webkit-keyframes sk-stretchdelay {
