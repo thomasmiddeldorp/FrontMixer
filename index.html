@@ -4,67 +4,85 @@
 		<meta charset="utf-8"/>
 		<title>Audio</title>
 		<link href="styles/style.css" rel="stylesheet"/>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Iceland' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
-		<h1>FrontMixer</h1>
+  <div class="device">
+		<h1 class="brand">FrontMixer<span class="copyright">&reg;</span></h1>
 		<form>
 			<div class="mixer">
 				<section class="mixer-channel">
-					<h1>Channel 1</h1>
-					<div>
+					<h2>Channel 1</h2>
+					<div class="low-band">
 						<label for="low-band-left">Low</label>
-						<input id="low-band-left" max="40" min="-40" step="1" type="range" value="0"/>
+						<input id="low-band-left" max="127" min="0" step="1" type="range" value="63"/>
 					</div>
 
-					<div>
+					<div class="high-band">
 						<label for="high-band-left">High</label>
-						<input id="high-band-left" max="40" min="-40" step="1" type="range" value="0"/>
+						<input id="high-band-left" max="127" min="0" step="1" type="range" value="63"/>
 					</div>
 
-					<div>
+					<div class="volume">
 						<label for="volume-fader-left">Volume</label>
 
 						<div class="fader-wrapper">
-							<input id="volume-fader-left" class="fader-vertical" max="100" min="0" step="1" type="range" value="100"/>
+							<input id="volume-fader-left" class="fader-vertical" max="127" min="0" step="1" type="range" value="63"/>
 						</div>
 					</div>
 
-					<button id="play-left" class="control-button">Play</button>
-					<button id="stop-left" class="control-button">Stop</button>
+					<button id="play-left" class="control-button play-left" title="Play"></button>
+					<button id="stop-left" class="control-button stop-left" title="Stop"></button>
 				</section>
 				<section class="mixer-channel">
-					<h1>Channel 2</h1>
-					<div>
+					<h2>Channel 2</h2>
+					<div class="low-band">
 						<label for="low-band-right">Low</label>
-						<input id="low-band-right" max="40" min="-40" step="1" type="range" value="0"/>
+						<input id="low-band-right" max="127" min="0" step="1" type="range" value="63"/>
 					</div>
 
-					<div>
+					<div class="high-band">
 						<label for="high-band-right">High</label>
-						<input id="high-band-right" max="40" min="-40" step="1" type="range" value="0"/>
+						<input id="high-band-right" max="127" min="0" step="1" type="range" value="63"/>
 					</div>
 
-					<div>
+					<div class="volume">
 						<label for="volume-fader-right">Volume</label>
 
 						<div class="fader-wrapper">
-							<input id="volume-fader-right" class="fader-vertical" max="100" min="0" step="1" type="range" value="100"/>
+							<input id="volume-fader-right" class="fader-vertical" max="127" min="0" step="1" type="range" value="63"/>
 						</div>
 					</div>
 
-					<button id="play-right" class="control-button">Play</button>
-					<button id="stop-right" class="control-button">Stop</button>
+					<button id="play-right" class="control-button play-right" title="Play"></button>
+					<button id="stop-right" class="control-button stop-right" title="Stop"></button>
 				</section>
+      </div>
+      <!--<div>-->
+          <!--<label for="distortion">Distortion</label>-->
+          <!--<input id="distortion" max="100" min="0" step="1" type="range" value="0"/>-->
+      <!--</div>-->
 
-                <div>
-                    <label for="distortion">Distortion</label>
-                    <input id="distortion" max="100" min="0" step="1" type="range" value="0"/>
-                </div>
-			</div>
 		</form>
-		<script src="http://cdn.binaryjs.com/0/binary.js"></script>
+    <div class="loading-screen">
+      <div class="loading-box">
+        <h2>Loading track</h2>
+        <div class="spinner">
+          <div class="rect1"></div>
+          <div class="rect2"></div>
+          <div class="rect3"></div>
+          <div class="rect4"></div>
+          <div class="rect5"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+		<script src="scripts/Mixer.js"></script>
+		<script src="scripts/midi-controller.js"></script>
         <script src="scripts/script.js"></script>
         <script src="scripts/front-mixer.js"></script>
-        <script src="scripts/equalizer.js"></script>
+		<script src="scripts/equalizer.js"></script>
+		<script src="scripts/pub-sub.js"></script>
     </body>
 </html>

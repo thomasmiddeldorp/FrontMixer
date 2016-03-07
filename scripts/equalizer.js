@@ -1,9 +1,12 @@
-function Equalizer(context, controls) {
+function Equalizer(context, controls, mixer) {
 	this.context = context;
 	this.controls = controls;
 
 	this.lowBandElement = this.controls.lowBandElement;
 	this.highBandElement = this.controls.highBandElement;
+
+	mixer.registerControl('channel1-eq-high', this.onHighBandExternalInput.bind(this));
+	mixer.registerControl('channel1-eq-low', this.onLowBandExternalInput.bind(this));
 
 	this.lowBandElement.addEventListener('input', this.onLowBandInput.bind(this));
 	this.highBandElement.addEventListener('input', this.onHighBandInput.bind(this));
@@ -16,7 +19,6 @@ function Equalizer(context, controls) {
 
 	this.bands = {
 		low: lowBand,
-		//mid: new EqualizerBand('bandpass', context.audioContext),
 		high: highBand
 	};
 
@@ -27,12 +29,22 @@ function Equalizer(context, controls) {
 }
 
 Equalizer.prototype = {
+	onLowBandExternalInput: function (value) {
+		this.bands.low.adjustVolume(parseFloat(value - 63));
+		this.lowBandElement.value = value;
+	},
+
 	onLowBandInput: function () {
-		this.bands.low.adjustVolume(parseFloat(this.lowBandElement.value));
+		this.bands.low.adjustVolume(parseFloat(this.lowBandElement.value - 63));
+	},
+
+	onHighBandExternalInput: function (value) {
+		this.bands.high.adjustVolume(parseFloat(value - 63));
+		this.highBandElement.value = value;
 	},
 
 	onHighBandInput: function () {
-		this.bands.high.adjustVolume(parseFloat(this.highBandElement.value));
+		this.onHighBandInput(parseFloat(this.highBandElement.value));
 	}
 };
 
